@@ -642,6 +642,7 @@
       <DependentUpon>Databases.Modal.cshtml</DependentUpon>
     </Content>
     <Content Include="Views\SQL\AllJobs.cshtml" />
+    <None Include="Properties\PublishProfiles\localhost.pubxml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\js\Scripts.js" />
