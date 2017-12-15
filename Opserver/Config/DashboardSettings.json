@@ -53,8 +53,8 @@
     {
       "name": "PRD", // Name for this group of servers
       "pattern": "MCPSQL|EZDSQL|EZVSQL|BTSSQL|SPSQL|BISQL|AHCS-SQLTFS|TRACSQL|INFRASQL|AHCS-SEND", // Regex pattern of server names to put in this group
-      "cpuWarningPercent": 20, // How much CPU usage before a node is treated as a warning (defaults to the setting above if not specified)
-      "cpuCriticalPercent": 60, // How much CPU usage before a node is treated as critical (defaults to the setting above if not specified)
+      "cpuWarningPercent": 60, // How much CPU usage before a node is treated as a warning (defaults to the setting above if not specified)
+      "cpuCriticalPercent": 80, // How much CPU usage before a node is treated as critical (defaults to the setting above if not specified)
       "memoryWarningPercent": 98, // How much memory usage before a node is treated as a warning (defaults to the setting above if not specified)
       "memoryCriticalPercent": 99.2, // How much memory usage before a node is treated as critical (defaults to the setting above if not specified)
       "primaryInterfacePattern": "-TEAM$" // (If the provider supports it) Regex pattern of interface names to treat as "primary" (shown in the dashboard aggregates)
@@ -62,8 +62,8 @@
     {
       "name": "VAL", // Name for this group of servers
       "pattern": "VAL", // Regex pattern of server names to put in this group
-      "cpuWarningPercent": 20, // How much CPU usage before a node is treated as a warning (defaults to the setting above if not specified)
-      "cpuCriticalPercent": 60, // How much CPU usage before a node is treated as critical (defaults to the setting above if not specified)
+      "cpuWarningPercent": 80, // How much CPU usage before a node is treated as a warning (defaults to the setting above if not specified)
+      "cpuCriticalPercent": 90, // How much CPU usage before a node is treated as critical (defaults to the setting above if not specified)
       "memoryWarningPercent": 98, // How much memory usage before a node is treated as a warning (defaults to the setting above if not specified)
       "memoryCriticalPercent": 99.2, // How much memory usage before a node is treated as critical (defaults to the setting above if not specified)
       "primaryInterfacePattern": "-TEAM$" // (If the provider supports it) Regex pattern of interface names to treat as "primary" (shown in the dashboard aggregates)
@@ -72,8 +72,8 @@
       "name": "DBA", // Name for this group of servers
       "pattern": "DBASQL", // Regex pattern of server names to put in this group
       "cpuWarningPercent": 20, // How much CPU usage before a node is treated as a warning (defaults to the setting above if not specified)
-      "cpuCriticalPercent": 60, // How much CPU usage before a node is treated as critical (defaults to the setting above if not specified)
-      "memoryWarningPercent": 98, // How much memory usage before a node is treated as a warning (defaults to the setting above if not specified)
+      "cpuCriticalPercent": 90, // How much CPU usage before a node is treated as critical (defaults to the setting above if not specified)
+      "memoryWarningPercent": 99, // How much memory usage before a node is treated as a warning (defaults to the setting above if not specified)
       "memoryCriticalPercent": 99.2, // How much memory usage before a node is treated as critical (defaults to the setting above if not specified)
       "primaryInterfacePattern": "-TEAM$" // (If the provider supports it) Regex pattern of interface names to treat as "primary" (shown in the dashboard aggregates)
     },
@@ -81,17 +81,17 @@
       "name": "UAT", // Name for this group of servers
       "pattern": "UAT", // Regex pattern of server names to put in this group
       "cpuWarningPercent": 20, // How much CPU usage before a node is treated as a warning (defaults to the setting above if not specified)
-      "cpuCriticalPercent": 60, // How much CPU usage before a node is treated as critical (defaults to the setting above if not specified)
-      "memoryWarningPercent": 98, // How much memory usage before a node is treated as a warning (defaults to the setting above if not specified)
+      "cpuCriticalPercent": 90, // How much CPU usage before a node is treated as critical (defaults to the setting above if not specified)
+      "memoryWarningPercent": 99, // How much memory usage before a node is treated as a warning (defaults to the setting above if not specified)
       "memoryCriticalPercent": 99.2, // How much memory usage before a node is treated as critical (defaults to the setting above if not specified)
       "primaryInterfacePattern": "-TEAM$" // (If the provider supports it) Regex pattern of interface names to treat as "primary" (shown in the dashboard aggregates)
     },
     {
       "name": "QA/STG", // Name for this group of servers
       "pattern": "QA|STAGE", // Regex pattern of server names to put in this group
-      "cpuWarningPercent": 20, // How much CPU usage before a node is treated as a warning (defaults to the setting above if not specified)
-      "cpuCriticalPercent": 60, // How much CPU usage before a node is treated as critical (defaults to the setting above if not specified)
-      "memoryWarningPercent": 98, // How much memory usage before a node is treated as a warning (defaults to the setting above if not specified)
+      "cpuWarningPercent": 90, // How much CPU usage before a node is treated as a warning (defaults to the setting above if not specified)
+      "cpuCriticalPercent": 99, // How much CPU usage before a node is treated as critical (defaults to the setting above if not specified)
+      "memoryWarningPercent": 9, // How much memory usage before a node is treated as a warning (defaults to the setting above if not specified)
       "memoryCriticalPercent": 99.2, // How much memory usage before a node is treated as critical (defaults to the setting above if not specified)
       "primaryInterfacePattern": "-TEAM$" // (If the provider supports it) Regex pattern of interface names to treat as "primary" (shown in the dashboard aggregates)
     },
