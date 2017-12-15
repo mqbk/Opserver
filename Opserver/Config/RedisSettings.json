@@ -1,0 +1,32 @@
+﻿/* Configuration for the Redis dashboard */
+{
+  /* If a server doesn't specify any instances, then these will be used as a fallback.
+     For most simple setups, this is a single :6379 instance */
+  "defaults": {
+    "instances": [
+      {
+        "name": "Default", // Name to use in the UI
+        "port": 6379 // Port the instance runs on
+      }
+    ]
+  },
+  /* (DEPRECATED) - will remove this in favor of defaults in 2.0
+     Instances that appear on *all* servers (even if they *also* specify their own)
+     Useful for environments where most servers have the same setup, like a master + replica configuration.
+     Or, in a simple setup you'd just declare the 6379 (redis default port) instance here. */
+  "allServers": {
+    "instances": [
+      {
+        "name": "Core (Bosun)",
+        "port": 6379
+      }
+    ]
+  },
+  /* Individually specified servers (DNS entries or IPs)
+     Each of these may specify their own instances. 
+     If they don't, each will inherit the instances configured in allServers above. */
+  "Servers": [
+    // Simple server, inheriting the instances from allServers
+    { "name": "bosunprd01" }
+  ]
+}
