@@ -227,7 +227,8 @@ span.pull-right a.pull-right {
 }
 
 .actions, .page-header .pull-right {
-  a + a:not(.btn):before {
+  a + a:not(.btn):before,
+  .btn-group + a:not(.btn):before {
     content: "| ";
     color: @gray;  
     opacity: 0.4;
@@ -369,7 +370,7 @@ span.pull-right a.pull-right {
   }
 }
 
-.profiler-results.profiler-left {
+.mp-results.mp-left {
   position: absolute;
   top: @miniprofiler-top-margin;
   border-bottom-right-radius: 10px;
@@ -736,6 +737,10 @@ span.pull-right a.pull-right {
   height: 265px;
 }
 
+.no-select {
+  .user-select(none);
+}
+
 .comma-list {
   display: inline;
   list-style: none;
@@ -770,11 +775,27 @@ span.pull-right a.pull-right {
   }
 }
 
+.list-group {
+    .well-condensed {
+        margin-bottom: 0;
+    }
+
+    &.list-group-condensed {
+        margin-bottom: 0;
+    }
+}
+
 .well-condensed {
-  margin-bottom: @panel-body-padding;
-  &:last-child {
-    margin-bottom: 0;
-  }
+    margin-bottom: @panel-body-padding;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.small .checkbox {
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 
 .ul-tree, .ul-tree ul {
@@ -820,6 +841,10 @@ span.pull-right a.pull-right {
     margin-bottom: 0;
 }
 
+a.list-group-item, a.list-group-item span {
+    cursor: pointer;
+}
+
 /* Cache Dashboard */
 tr.cache-sub-item td:first-child {
     padding-left: 15px;
@@ -836,4 +861,12 @@ tr.cache-sub-item td:first-child {
 
 .total-row {
     font-weight: bold;
+}
+
+pre {
+    padding: 0;
+    font-size: 1em;
+    code, code.hljs {
+        border: none;
+    }
 }

@@ -65,6 +65,12 @@ namespace StackExchange.Opserver
         public static string UrlEncode(this string s) => s.HasValue() ? WebUtility.UrlEncode(s) : s;
 
         /// <summary>
+        /// returns Url Encoded string
+        /// </summary>
+        /// <param name="s">The string to encode, to put in URLs</param>
+        public static string UrlPathEncode(this string s) => s.HasValue() ? Uri.EscapeUriString(s) : s;
+
+        /// <summary>
         /// returns Html Encoded string
         /// </summary>
         /// <param name="s">The string to encode, to put in HTML</param>
@@ -182,14 +188,14 @@ namespace StackExchange.Opserver
                 result = Current.LocalCache.Get<MonitorStatus?>(cacheKey);
             if (result == null)
             {
-                result = GetWorstStatus(ims.Select(i => i.MonitorStatus));
+                result = GetWorstStatus(ims.Where(i => i != null).Select(i => i.MonitorStatus));
                 if (cacheKey.HasValue())
                     Current.LocalCache.Set(cacheKey, result, duration);
             }
             return result.Value;
         }
 
-        public static MonitorStatus GetWorstStatus(this IEnumerable<MonitorStatus> ims) => ims.OrderByDescending(i => i).FirstOrDefault();
+        public static MonitorStatus GetWorstStatus(this IEnumerable<MonitorStatus> ims) => ims?.OrderByDescending(i => i).FirstOrDefault() ?? MonitorStatus.Unknown;
 
         public static IOrderedEnumerable<T> OrderByWorst<T>(this IEnumerable<T> ims) where T : IMonitorStatus => OrderByWorst(ims, i => i.MonitorStatus);
 

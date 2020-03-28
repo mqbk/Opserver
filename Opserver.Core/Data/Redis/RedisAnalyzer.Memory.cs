@@ -156,7 +156,6 @@ namespace StackExchange.Opserver.Data.Redis
             var keys = server.Keys(Database, pageSize: 1000);
             KeyTime = sw.Elapsed;
 
-            muxer.PreserveAsyncOrder = true;
             // Analyze each key
             sw.Restart();
             using (MiniProfiler.Current.Step("Key analysis"))
@@ -190,7 +189,7 @@ namespace StackExchange.Opserver.Data.Redis
 
             ConnectionInfo = connectionInfo;
             Database = database;
-            if (!RedisAnalyzer.KeyMatchers.TryGetValue(connectionInfo, out List<KeyMatcher> matchers))
+            if (!RedisAnalyzer.KeyMatchers.TryGetValue(connectionInfo, out var matchers))
             {
                 ErrorMessage = "Could not find regexes defined for " + connectionInfo;
                 return;

@@ -10,8 +10,9 @@ using StackExchange.Opserver.Data.Dashboard;
 using StackExchange.Opserver.Data.SQL;
 using StackExchange.Opserver.Helpers;
 using StackExchange.Opserver.Views.Shared;
-using UnconstrainedMelody;
 using System.Text;
+using EnumsNET;
+using System.Web.Routing;
 
 namespace StackExchange.Opserver
 {
@@ -489,6 +490,19 @@ namespace StackExchange.Opserver
             var result = sb.ToStringRecycle();
             return result.Length > 1 ? result : "";
         }
+
+        public static RouteValueDictionary ToRouteValues(this NameValueCollection queryString)
+        {
+            var routeValues = new RouteValueDictionary();
+            if (queryString?.HasKeys() == true)
+            {
+                foreach (string key in queryString.AllKeys)
+                {
+                    routeValues.Add(key, queryString[key]);
+                }
+            }
+            return routeValues;
+        }
     }
 
     public static class ViewsExtensionMethods
@@ -546,19 +560,19 @@ namespace StackExchange.Opserver
             {
                 case SynchronizationStates.Synchronizing:
                 case SynchronizationStates.Synchronized:
-                    return StatusIndicator.UpCustomSpan(state.Value.GetDescription(), tooltip);
+                    return StatusIndicator.UpCustomSpan(state.Value.AsString(EnumFormat.Description), tooltip);
                 case SynchronizationStates.NotSynchronizing:
                 case SynchronizationStates.Reverting:
                 case SynchronizationStates.Initializing:
-                    return StatusIndicator.DownCustomSpan(state.Value.GetDescription(), tooltip);
+                    return StatusIndicator.DownCustomSpan(state.Value.AsString(EnumFormat.Description), tooltip);
                 default:
-                    return StatusIndicator.UnknownCustomSpan(state.Value.GetDescription(), tooltip);
+                    return StatusIndicator.UnknownCustomSpan(state.Value.AsString(EnumFormat.Description), tooltip);
             }
         }
 
         public static IHtmlString ToSpan(this ReplicaRoles? state, string tooltip = null, bool abbreviate = false)
         {
-            var desc = state.HasValue ? state.Value.GetDescription() : "";
+            var desc = state.HasValue ? state.Value.AsString(EnumFormat.Description) : "";
             if (abbreviate) desc = desc.Substring(0, 1);
             switch (state)
             {

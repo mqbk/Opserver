@@ -9,7 +9,7 @@
     var files = filesRaw?.Data?.Where(f => f.DatabaseId == db?.Id).OrderBy(f => f.FileType).ThenBy(f => f.PhysicalName);
     var tablesRaw = i?.GetTableInfo(Model.Database);
     var tables = tablesRaw.Data?.OrderByDescending(t => t.TotalSpaceKB).ThenBy(t => t.TableName).ToList();
-    var spaceIds = files?.Select(f => f.DataSpaceId).Where(id => id > 0).ToHashSet() ?? new HashSet<int>();
+    var spaceIds = StackExchange.Opserver.ExtensionMethods.ToHashSet(files?.Select(f => f.DataSpaceId).Where(id => id > 0))  ?? new HashSet<int>();
     var spacesRaw = i?.GetDataSpaceInfo(Model.Database);
     var spaces = spacesRaw.Data?.Where(ds => spaceIds.Contains(ds.Id)) ?? new List<SQLInstance.DatabaseDataSpace>();
     const int topTableShowCount = 10;
@@ -57,7 +57,7 @@ else
                     {
                         var percentFull = f.UsedSizeBytes * 1.0 / f.TotalSizeBytes * 100;
                         <tr>
-                            <td>@f.FileType.GetDescription()</td>
+                            <td>@f.FileType.AsString(EnumFormat.Description)</td>
                             <td title="Virtual Name: @f.FileName"><span title="@f.PhysicalName">@f.ShortPhysicalName</span></td>
                             <td>
                                 @f.UsedSizeBytes.ToHumanReadableSize() / @f.TotalSizeBytes.ToHumanReadableSize() <span class="text-muted">(@percentFull.ToString("n2")%)</span>

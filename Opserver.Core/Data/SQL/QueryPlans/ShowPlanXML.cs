@@ -44,14 +44,15 @@ namespace StackExchange.Opserver.Data.SQL.QueryPlans
         private static readonly Regex emptyLineRegex = new Regex(@"^\s+$[\r\n]*", RegexOptions.Compiled | RegexOptions.Multiline);
         private static readonly Regex initParamsTrimRegex = new Regex(@"^\s*(begin|end)\s*", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         private static readonly Regex paramRegex = new Regex(@"^\(( [^\(\)]* ( ( (?<Open>\() [^\(\)]* )+ ( (?<Close-Open>\)) [^\(\)]* )+ )* (?(Open)(?!)) )\)", RegexOptions.Compiled | RegexOptions.IgnorePatternWhitespace);
+        private static readonly Regex paramSplitRegex = new Regex(@",(?=[@])", RegexOptions.Compiled | RegexOptions.IgnorePatternWhitespace);
+        private static readonly char[] startTrimChars = new[] { '\n', '\r', ';' };
 
         public string ParameterDeclareStatement
         {
             get
             {
                 //TODO: Cross-statement vars declared in an assign, used later
-                var ss = this as StmtSimpleType;
-                return ss != null ? GetDeclareStatement(ss.QueryPlan) : "";
+                return this is StmtSimpleType ss ? GetDeclareStatement(ss.QueryPlan) : "";
             }
         }
 
@@ -60,8 +61,7 @@ namespace StackExchange.Opserver.Data.SQL.QueryPlans
             get
             {
                 //TODO: Pair these down, seeing what looks good for now
-                var ss = this as StmtSimpleType;
-                return ss != null ? emptyLineRegex.Replace(paramRegex.Replace(ss.StatementText ?? "", ""), "").Trim() : "";
+                return this is StmtSimpleType ss ? emptyLineRegex.Replace(paramRegex.Replace(ss.StatementText ?? "", ""), "").Trim().TrimStart(startTrimChars) : "";
             }
         }
 
@@ -81,8 +81,8 @@ namespace StackExchange.Opserver.Data.SQL.QueryPlans
             var result = StringBuilderCache.Get();
             var paramTypeList = paramRegex.Match(StatementText);
             if (!paramTypeList.Success) return "";
-
-            var paramTypes = paramTypeList.Groups[1].Value.Split(StringSplits.Comma).Select(p => p.Split(StringSplits.Space));
+            // TODO: get test cases and move this to a single multi-match regex
+            var paramTypes = paramSplitRegex.Split(paramTypeList.Groups[1].Value).Select(p => p.Split(StringSplits.Space));
 
             foreach (var p in queryPlan.ParameterList)
             {

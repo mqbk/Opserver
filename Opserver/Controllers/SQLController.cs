@@ -50,14 +50,16 @@ namespace StackExchange.Opserver.Controllers
         }
 
         [Route("sql/jobs")]
-        public ActionResult AllJobs()
+        public ActionResult AllJobs(JobSort? sort = null, SortDir? dir = null)
         {
             var vd = new ServersModel
             {
                 View = SQLViews.Jobs,
                 StandaloneInstances = SQLModule.StandaloneInstances,
                 Clusters = SQLModule.Clusters,
-                Refresh = 30
+                Refresh = 30,
+                JobSort = sort,
+                SortDirection = dir
             };
 
             return View("AllJobs", vd);
@@ -250,6 +252,9 @@ namespace StackExchange.Opserver.Controllers
                 case "views":
                     vd.View = DatabasesModel.Views.Views;
                     return View("Databases.Modal.Views", vd);
+                case "unusedindexes":
+                    vd.View = DatabasesModel.Views.UnusedIndexes;
+                    return View("Databases.Modal.UnusedIndexes", vd);
                 case "missingindexes":
                     vd.View = DatabasesModel.Views.MissingIndexes;
                     return View("Databases.Modal.MissingIndexes", vd);
